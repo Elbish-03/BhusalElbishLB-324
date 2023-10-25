@@ -29,7 +29,7 @@ repos:
         stages: [commit-msg]
 
       - id: pytest-check
-        stages: [pre-push]
+        stages: [push]
         types: [python]
         name: pytest-check
         entry: python -m pytest
