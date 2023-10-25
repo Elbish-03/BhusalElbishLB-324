@@ -1,28 +1,37 @@
 repos:
-  - repo: https://github.com/pre-commit/mirrors-black
-    rev: v20.8b1
+  - repo: https://github.com/ambv/black
+    rev: 23.7.0
     hooks:
       - id: black
+        language_version: python3.11
 
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.25.0
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.0.0
     hooks:
-      - id: prettier
-
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v6.8.0
-    hooks:
-      - id: eslint
-
-  - repo: https://github.com/pre-commit/mirrors-flake8
-    rev: v4.0.1
-    hooks:
+      - id: check-byte-order-marker
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-yaml
+      - id: end-of-file-fixer
       - id: flake8
+      - id: mixed-line-ending
+        args:
+          - --fix=lf
+      - id: trailing-whitespace
 
   - repo: local
     hooks:
-      - id: test
-        name: "Run Tests"
-        entry: python -m unittest discover -s tests
+      - id: needs-hash
+        name: commit message needs issues
+        language: pygrep
+        entry: '#\d+'
+        args: [--multiline, --negate]
+        stages: [commit-msg]
+
+      - id: pytest-check
+        name: pytest-check
+        entry: python -m pytest
         language: system
-        stages: [commit]
+        pass_filenames: false
+        always_run: true
+        stages: [push]
