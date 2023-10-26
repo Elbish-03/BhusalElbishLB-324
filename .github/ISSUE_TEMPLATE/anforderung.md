@@ -15,6 +15,6 @@ Zusätzliche Informationen:
 [Hier können Sie weitere Informationen hinzufügen, z. B. Screenshots, Diagramme, usw.]
 
 Label:
-**Funktionale Anforderung**
-**Qualitätsanforderung**
+**Funktionale Anforderung,**
+**Qualitätsanforderung,**
 **Randanforderung**
