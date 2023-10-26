@@ -16,6 +16,4 @@ def test_add_entry(client):
     response = client.post("/add_entry", data={"content": "Test Entry Content"})
 
     assert response.status_code == 302
-    assert (
-        response.headers["Location"] == "http://localhost/"
-    )  # Update the expected value
+    assert response.headers["Location"] == "/"
