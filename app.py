@@ -1,7 +1,6 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for, session, flash
 from datetime import datetime
-from dataclasses import dataclass
 import os
 from dotenv import load_dotenv
 
@@ -13,10 +12,14 @@ PASSWORD = os.getenv("PASSWORD")
 entries = []
 
 
-@dataclass
 class Entry:
-    content: str
-    timestamp: datetime = datetime.now()
+    def __init__(self, content, happiness=None):
+        self.content = content
+        self.timestamp = datetime.now()
+        self.happiness = happiness
+
+
+mock_database = []
 
 
 @app.route("/")
@@ -51,6 +54,18 @@ def add_entry():
         entry = Entry(content=content)
         entries.append(entry)
     return redirect(url_for("index"))
+
+
+@app.route("/add_entry_with_happiness", methods=["POST"])
+def add_entry_with_happiness():
+    content = request.form.get("content")
+    happiness = request.form.get("happiness")
+
+    # Instead of using a real database, store data in the mock database
+    entry = Entry(content=content, happiness=happiness)
+    mock_database.append(entry)
+
+    return redirect("/")
 
 
 if __name__ == "__main__":
